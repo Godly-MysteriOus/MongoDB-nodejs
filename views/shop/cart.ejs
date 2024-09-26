@@ -1,0 +1,34 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/cart.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <% if (product.length>0) { %>
+            <div class="container">
+                <% for( let i = 0; i < product.length; i++ ) { %>
+                    <% const item  = product[i] %>
+                    <div class="item-details-wrapper">
+                        <div class="productImage"><img src=" <%=item.imageUrl%>" alt="random" class="imageHolderForProduct"></div>
+                        <div class="productDetailsHolder">
+                            <div class="prodTitle"><%= item.title %></div>
+                            <div class="prodDesc"><%= item.description %></div>
+                            <div class="moreDetailWrapper">
+                                <div class="prodQty">Quantity: <%= item.quantity %></div>
+                                <div class="price">Price: <%= item.price %> $</div>
+                            </div>
+                            <div class="btnActionsHolder">
+                                <%- include('../includes/delete-from-cart.ejs',{product:item}) %>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+                <br><br>
+                <form action="/create-order" method="post">
+                    <button class="btn">CheckOut</button>
+                </form>
+            </div>
+        <% }else{ %>
+            <h2>No product in db</h2>
+        <%} %>
+        <%- include('../includes/end.ejs') %>
